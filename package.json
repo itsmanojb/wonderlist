@@ -1,7 +1,16 @@
 {
-  "name": "shopping-list",
+  "name": "wonderlist",
+  "description": "React context api based shopping/todo list app",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Manoj Barman",
+    "url": "https://manojbarman.in"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsmanojb/wonderlist.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
