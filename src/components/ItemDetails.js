@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { WonderItemContext } from '../contexts/WonderItem';
 
 const ItemDetails = ({ item }) => {
-  const { removeItem } = useContext(WonderItemContext);
+  const { dispatch } = useContext(WonderItemContext);
   return (
-    <li onClick={() => removeItem(item.id)}>
+    <li onClick={() => dispatch({ type: 'REMOVE_ITEM', id: item.id })}>
       <div className="item">{item.name}</div>
     </li>
   );

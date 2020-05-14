@@ -2,11 +2,14 @@ import React, { useContext, useState } from 'react';
 import { WonderItemContext } from '../contexts/WonderItem';
 
 const NewItem = () => {
-  const { addItem } = useContext(WonderItemContext);
+  const { dispatch } = useContext(WonderItemContext);
   const [itemName, setItemName] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-    addItem(itemName);
+    dispatch({
+      type: 'ADD_ITEM',
+      item: { name: itemName },
+    });
     setItemName('');
   };
   return (
