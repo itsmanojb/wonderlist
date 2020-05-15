@@ -1,16 +1,16 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import WonderItemContextProvider from './contexts/WonderItem';
-import ItemList from './components/Itemlist';
-import NewItem from './components/NewItem';
+import AllList from './components/AllLists';
+import NewList from './components/NewList';
 
 function App() {
   return (
     <div className="App">
       <WonderItemContextProvider>
         <Navbar />
-        <ItemList />
-        <NewItem />
+        <AllList />
+        <NewList />
       </WonderItemContextProvider>
     </div>
   );
