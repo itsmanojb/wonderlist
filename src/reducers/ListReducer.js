@@ -13,55 +13,74 @@ export const listReducer = (state, action) => {
     case 'RENAME_LIST':
       return state.map((list) =>
         list.id === action.payload.id
-          ? { ...list, name: action.payload.name }
+          ? {
+            ...list,
+            name: action.payload.name,
+            lastUpdated: Date.now()
+          }
           : list
       );
     case 'PIN_LIST':
       return state.map((list) =>
-        list.id === action.id ? { ...list, pinned: true } : list
+        list.id === action.id ? {
+          ...list,
+          pinned: true,
+          lastUpdated: Date.now()
+        } : list
       );
     case 'UNPIN_LIST':
       return state.map((list) =>
-        list.id === action.id ? { ...list, pinned: false } : list
+        list.id === action.id ? {
+          ...list,
+          pinned: false,
+          lastUpdated: Date.now()
+        } : list
       );
     case 'REMOVE_LIST':
-      return state.filter((list) => list.id !== action.id);
+      return state.map((list) => ({ ...list, lastUpdated: Date.now() })).filter((list) => list.id !== action.id);
     case 'ADD_LIST_ITEM':
       return state.map((list) =>
         list.id === action.payload.listId
           ? {
-              ...list,
-              items: [
-                ...list.items,
-                {
-                  name: action.payload.itemName,
-                  completed: action.payload.completed,
-                },
-              ],
-            }
+            ...list,
+            lastUpdated: Date.now(),
+            items: [
+              ...list.items,
+              {
+                id: uuid(),
+                name: action.payload.itemName,
+                completed: action.payload.completed,
+              },
+            ],
+          }
           : list
       );
     case 'MARK_AS_COMPLETE':
       return state.map((list) =>
         list.id === action.payload.listId
           ? {
-              ...list,
-              items: list.items.map((item) => {
-                list.items[action.payload.itemIndex].completed = true;
+            ...list,
+            lastUpdated: Date.now(),
+            items: [
+              ...list.items.map((item) => {
+                if (item.id === action.payload.itemId) {
+                  item.completed = true;
+                }
                 return item;
-              }),
-            }
+              })
+            ],
+          }
           : list
       );
     case 'REMOVE_LIST_ITEM':
       return state.map((list) =>
         list.id === action.payload.listId
           ? {
-              ...list,
-              items: list.items.filter(
-                (item, i) => i !== action.payload.itemIndex
-              ),
-            }
+            ...list,
+            lastUpdated: Date.now(),
+            items: list.items.filter((item) => item.id !== action.payload.itemId
+            ),
+          }
           : list
       );
     default:

@@ -2,8 +2,14 @@ import React, { useContext, useState } from 'react';
 import { WonderItemContext } from '../contexts/WonderItem';
 
 const NewList = () => {
-  const { dispatch } = useContext(WonderItemContext);
+  const { dispatch, showNewListForm } = useContext(WonderItemContext);
   const [listName, setListName] = useState('');
+
+  const handleFocusOut = () => {
+    if (listName.trim().length === 0) {
+      showNewListForm(false)
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,22 +18,27 @@ const NewList = () => {
       list: {
         name: listName,
         pinned: false,
-        lastUpdated: new Date().getTime(),
+        lastUpdated: Date.now(),
         items: [],
       },
     });
     setListName('');
+    showNewListForm(false);
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={listName}
-        placeholder="New List"
-        onChange={(e) => setListName(e.target.value)}
-        required
-      />
-      <button type="submit">Save</button>
+      <div className="list new-list">
+        <div className="list-header edit-mode">
+          <div className="title">
+            <div className="edit">
+              <input type="text" value={listName} autoFocus placeholder="List Name" onBlur={handleFocusOut} onChange={(e) => setListName(e.target.value)} />
+            </div>
+          </div>
+          <div className="actions">
+            <button className="ico-btn save" type="submit" disabled={listName.trim() === ''}></button>
+          </div>
+        </div>
+      </div>
     </form>
   );
 };

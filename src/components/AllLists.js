@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
 import { WonderItemContext } from '../contexts/WonderItem';
 import ListDetails from './ListDetails';
+import NewList from './NewList';
 
 const AllList = () => {
-  const { lists } = useContext(WonderItemContext);
-  return lists.length ? (
-    <div className="itemlist">
-      {lists.map((list) => {
-        return <ListDetails list={list} key={list.id} />;
-      })}
-    </div>
-  ) : (
-    <div className="empty">Nothing's here</div>
+  const { lists, newListForm } = useContext(WonderItemContext);
+  return (
+    <>
+      {newListForm && <NewList />}
+      {lists.length ? lists.map((list) => <ListDetails list={list} key={list.id} />) : null}
+    </>
   );
 };
 
