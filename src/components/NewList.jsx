@@ -26,12 +26,19 @@ const NewList = () => {
     showNewListForm(false);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={e => handleSubmit(e)}>
       <div className="list new-list">
         <div className="list-header edit-mode">
           <div className="title">
             <div className="edit">
-              <input type="text" value={listName} autoFocus placeholder="List Name" onBlur={handleFocusOut} onChange={(e) => setListName(e.target.value)} />
+              <input
+                type="text"
+                value={listName}
+                autoFocus
+                placeholder="List Name"
+                onBlur={() => handleFocusOut()}
+                onChange={(e) => setListName(e.target.value)}
+              />
             </div>
           </div>
           <div className="actions">

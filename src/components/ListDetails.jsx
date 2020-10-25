@@ -30,6 +30,7 @@ const ListDetails = ({ list }) => {
   }
 
   return (
+    <>
     <div className={`list ${list.items.length === 0 ? 'empty' : ''} ${list.pinned ? 'pinned' : ''}`}>
       <div className={`list-header ${editView ? 'edit-mode' : ''}`}>
         <div className="title">
@@ -50,10 +51,10 @@ const ListDetails = ({ list }) => {
           </div>
         </div>
         <div className="actions">
-          {list.pinned && <button className="ico-btn pin pinned" type="button" onClick={() => dispatch({ type: 'UNPIN_LIST', id: list.id })}></button>}
-          {!list.pinned && <button className="ico-btn pin" type="button" onClick={() => dispatch({ type: 'PIN_LIST', id: list.id })}></button>}
-          <button className="ico-btn delete" type="button" onClick={() => dispatch({ type: 'REMOVE_LIST', id: list.id })}></button>
-          <button className="ico-btn save" type="button" onClick={handleSubmit} disabled={listNewName.trim() === ''}></button>
+          {list.pinned && <button className="ico-btn pin pinned" title="Unpin List" type="button" onClick={() => dispatch({ type: 'UNPIN_LIST', id: list.id })}></button>}
+          {!list.pinned && <button className="ico-btn pin" title="Pin List" type="button" onClick={() => dispatch({ type: 'PIN_LIST', id: list.id })}></button>}
+          <button className="ico-btn delete" type="button" title="Delete List" onClick={() => dispatch({ type: 'REMOVE_LIST', id: list.id })}></button>
+          <button className="ico-btn save" type="button" title="Save List" onClick={handleSubmit} disabled={listNewName.trim() === ''}></button>
         </div>
       </div>
       <div className="list-content-wrapper">
@@ -77,12 +78,13 @@ const ListDetails = ({ list }) => {
           {newItemShown && <NewListItem listId={list.id} onFocusOut={() => showNewItemForm(() => !newItemShown)} />}
         </div>
         <div className="list-footer">
-          <button className="text-btn" type="button" onClick={() => showNewItemForm(() => !newItemShown)} disabled={newItemShown}>
-            add item
+        <button type='button' title="Add Item" onClick={() => showNewItemForm(() => !newItemShown)} disabled={newItemShown}>
+          Add Item
         </button>
         </div>
       </div>
     </div>
+    </>
   )
 };
 

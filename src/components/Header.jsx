@@ -30,7 +30,9 @@ const Header = () => {
         }
       </div>
       <div className='new-list-btn'>
-        <button type='button' onClick={() => showNewListForm(() => !newListForm)} disabled={newListForm}></button>
+        <button type='button' title="Add List" onClick={() => showNewListForm(() => !newListForm)} disabled={newListForm}>
+          New List
+        </button>
       </div>
     </div>
   );
