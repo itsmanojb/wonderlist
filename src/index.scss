@@ -46,6 +46,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -56,6 +57,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg);
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 button {
@@ -75,12 +77,11 @@ button {
   background: var(--bg);
   min-height: 100vh;
   width: 100%;
-  max-width: 500px;
+  max-width: 640px;
   margin: 0 auto 2rem;
 }
 
 .cta-btn {
-
   background-color: var(--theme-color);
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkChkHBSUVnMUHAAAANUlEQVRIx2NkwAP+/4fQjIy41TAxUAhGDRg1YNQACGCE5bih6wXKwwCf5GiJNGrAqAF0NAAAA64GPAuWyWQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMTAtMjVUMDc6MDU6MzcrMDA6MDAX7OQUAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTEwLTI1VDA3OjA1OjM3KzAwOjAwZrFcqAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=);
   background-repeat: no-repeat;
@@ -92,6 +93,7 @@ button {
   position: relative;
   transition: all .2s ease-in;
   color: transparent;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--theme-color-dark);
@@ -182,7 +184,8 @@ button {
 
     .title {
       .view {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 30px;
 
         .name {
           cursor: default;
@@ -191,10 +194,9 @@ button {
           overflow: hidden;
           text-overflow: ellipsis;
           color: var(--text-color);
-          font-size: 20px;
+          font-size: 16px;
           line-height: 1.2;
           font-weight: 400;
-          max-width: 240px;
           // text-transform: capitalize;
           padding-top: 1px;
         }
@@ -204,7 +206,7 @@ button {
           display: inline-block;
           position: relative;
           background: url('./assets/edit.png') no-repeat;
-          width: 20px;
+          width: 26px;
           height: 20px;
           background-size: 16px;
           background-position-y: 4px;
@@ -220,6 +222,7 @@ button {
 
     .actions {
       display: flex;
+      justify-content: flex-end;
 
       button {
         height: 50px;
@@ -299,7 +302,7 @@ button {
             border: 0;
             background: transparent;
             color: var(--text-color);
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 400;
             font-family: inherit;
             width: 100%;
@@ -326,14 +329,16 @@ button {
   &-content {
     padding: var(--card-padding-y) var(--card-padding-x);
     margin-top: calc(var(--card-padding-y) * .25);
-    display: grid;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   &-item {
     padding: .5rem 0;
     display: inline-block;
     user-select: none;
+    position: relative;
   }
 
   &-footer {
@@ -346,6 +351,24 @@ button {
       background-position: center;
       height: 36px;
       width: 36px;
+      margin: 0 4px;
+
+      &.rmv {
+        position: relative;
+
+        &::before {
+          content: '';
+          content: '';
+          position: absolute;
+          border: 8px solid var(--theme-color);
+          width: 14px;
+          height: 2.5px;
+          top: 9px;
+          left: 3px;
+          border-radius: 12px;
+          background: #fff;
+        }
+      }
     }
   }
 
@@ -409,11 +432,16 @@ button {
 
   .list-header {
     padding: .8rem var(--card-padding-x);
-    grid-template-columns: 1fr 84px;
+    grid-template-columns: 1fr 64px;
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--page-color);
 
     .actions {
       button {
-        width: 42px;
+        width: 32px;
         height: 42px;
       }
 
@@ -421,6 +449,10 @@ button {
       .ico-btn.delete {
         background-size: 16px;
       }
+    }
+
+    &.edit-mode {
+      grid-template-columns: 1fr 32px;
     }
   }
 
@@ -446,12 +478,13 @@ button {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-  // display: flex;
-  height: 24px;
-  display: inline-block;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 16px;
+  align-items: center;
 
   span {
-    display: inline-block;
+    // display: inline-block;
     vertical-align: middle;
     transform: translate3d(0, 0, 0);
 
@@ -504,7 +537,6 @@ button {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-left: 25px;
       font-weight: 400;
 
       &:after {
@@ -584,9 +616,10 @@ button {
       }
     }
   }
+
 }
 
-input {
+input[type=text] {
   background: transparent;
   border: none;
   font-size: 16px;
@@ -594,6 +627,7 @@ input {
   line-height: 1;
   font-family: inherit;
   // text-transform: capitalize;
+  width: 100%;
 
   &:focus,
   &:active {
@@ -613,4 +647,23 @@ input {
   &::placeholder {
     color: var(--text-color-light);
   }
+}
+
+.delete-item-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 25%;
+  border: 1px solid #d64d4d;
+  transition: all 0.2s ease;
+  background-color: #d64d4d;
+  display: inline-block;
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  position: absolute;
+  margin-top: .5rem;
+  top: 0;
+  left: 0;
+  color: #fff;
 }

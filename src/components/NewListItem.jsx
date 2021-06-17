@@ -6,10 +6,10 @@ const NewListItem = ({ listId, onFocusOut }) => {
   const [itemName, setItemName] = useState('');
 
   const keyPressed = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSubmit();
     }
-  }
+  };
 
   const handleSubmit = () => {
     onFocusOut();
@@ -26,11 +26,26 @@ const NewListItem = ({ listId, onFocusOut }) => {
   };
   return (
     <div className="list-item new">
-      <input className="inp-cbx" id="cbxNew" type="checkbox" style={{ display: 'none' }} disabled />
+      <input
+        className="inp-cbx"
+        id="cbxNew"
+        type="checkbox"
+        style={{ display: 'none' }}
+        disabled
+      />
       <label className="cbx" htmlFor="cbxNew">
         <span></span>
         <span>
-          <input type="text" autoFocus value={itemName} onBlur={handleSubmit} className="new-item-input" placeholder="Type item name" onChange={(e) => setItemName(e.target.value)} onKeyPress={keyPressed} />
+          <input
+            type="text"
+            autoFocus
+            value={itemName}
+            onBlur={handleSubmit}
+            className="new-item-input"
+            placeholder="Type item name"
+            onChange={(e) => setItemName(e.target.value)}
+            onKeyPress={keyPressed}
+          />
         </span>
       </label>
     </div>
@@ -38,7 +53,6 @@ const NewListItem = ({ listId, onFocusOut }) => {
 };
 
 export default NewListItem;
-
 
 /**
 

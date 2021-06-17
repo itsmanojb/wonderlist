@@ -1,12 +1,21 @@
 import React from 'react';
 
-const ListItems = ({ items, onRemove, onComplete }) => {
+const ListItems = ({ items, editing, onRemove, onComplete }) => {
   return items.length ? (
     <>
-      {items.map((item) => {
+      {items.map((item, i) => {
         return (
-          <div className="list-item" key={item.id} onDoubleClick={() => onRemove(item.id)}>
-            <input className="inp-cbx" id={'cbx' + item.id} type="checkbox" checked={item.completed} onChange={() => onComplete(item.id)} style={{ display: 'none' }} />
+          <div className="list-item" key={item.id}>
+            <input
+              className="inp-cbx"
+              id={'cbx' + item.id}
+              type="checkbox"
+              checked={item.completed}
+              onChange={() =>
+                !editing ? onComplete(!item.completed, item.id) : null
+              }
+              style={{ display: 'none' }}
+            />
             <label className="cbx" htmlFor={'cbx' + item.id}>
               <span>
                 <svg width="12px" height="9px" viewBox="0 0 12 9">
@@ -15,11 +24,19 @@ const ListItems = ({ items, onRemove, onComplete }) => {
               </span>
               <span>{item.name}</span>
             </label>
-          </div>);
+            {editing && (
+              <span
+                className="delete-item-btn"
+                onClick={() => onRemove(item.id, items.length > 1)}
+              >
+                &times;
+              </span>
+            )}
+          </div>
+        );
       })}
     </>
   ) : null;
 };
 
 export default ListItems;
-

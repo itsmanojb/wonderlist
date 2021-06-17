@@ -5,8 +5,6 @@
     "activityBar.background": "#746ef2",
     "activityBar.foreground": "#e7e7e7",
     "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#f7aba7",
-    "activityBarBadge.foreground": "#15202b",
     "editorGroup.border": "#746ef2",
     "panel.border": "#746ef2",
     "sideBar.border": "#746ef2",
