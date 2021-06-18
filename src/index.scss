@@ -355,6 +355,7 @@ button {
 
       &.rmv {
         position: relative;
+        transition: none;
 
         &::before {
           content: '';
@@ -367,6 +368,12 @@ button {
           left: 3px;
           border-radius: 12px;
           background: #fff;
+        }
+
+        &:hover {
+          &::before {
+            border-color: var(--theme-color-dark);
+          }
         }
       }
     }

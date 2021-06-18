@@ -3,7 +3,7 @@ import { WonderItemContext } from '../contexts/WonderItem';
 
 const Header = () => {
   const { lists, newListForm, showNewListForm } = useContext(WonderItemContext);
-  const lastUpdatedOn = Math.max(...lists.map(list => list.lastUpdated));
+  const lastUpdatedOn = Math.max(...lists.map((list) => list.lastUpdated));
 
   const humanTime = (ts) => {
     const d = new Date(ts);
@@ -18,19 +18,25 @@ const Header = () => {
     min = min < 10 ? `0${min}` : min;
     const time = `${hour}:${min} ${ampm}`;
     return `${date}, ${time}`;
-  }
+  };
 
   return (
-    <div className='header'>
-      <div className='text'>
+    <div className="header">
+      <div className="text">
         <h3>Wonderlist</h3>
-        {lists.length ?
+        {lists.length ? (
           <p>Updated {humanTime(lastUpdatedOn)}</p>
-          : <p>It's kinda empty. Add new list first</p>
-        }
+        ) : (
+          <p>It's empty. Add new list first</p>
+        )}
       </div>
-      <div className='new-list-btn'>
-        <button type='button' title="Add List" onClick={() => showNewListForm(() => !newListForm)} disabled={newListForm}>
+      <div className="new-list-btn">
+        <button
+          type="button"
+          title="Add List"
+          onClick={() => showNewListForm(() => !newListForm)}
+          disabled={newListForm}
+        >
           New List
         </button>
       </div>
